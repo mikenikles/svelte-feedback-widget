@@ -8,7 +8,15 @@ const config = {
 
 	kit: {
 		// hydrate the <div id="svelte"> element in src/app.html
-		target: '#svelte'
+		target: '#svelte',
+		vite: {
+			server: {
+				hmr: {
+					clientPort: 443,
+					host: process.env.HMR_HOST.substring("https://".length)
+				}
+			}
+		}
 	}
 };
 
