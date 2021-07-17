@@ -1,0 +1,93 @@
+<script>
+	// Design & idea credit: www.vercel.com/docs 🙏
+	import { page } from '$app/stores';
+
+	let selectedEmotion;
+	let note = '';
+	let resultMessage;
+	let isSubmittedOnce = false;
+
+	const submitFeedback = async () => {
+		isSubmittedOnce = true;
+		const response = await fetch('/api/feedback', {
+			method: 'post',
+			body: JSON.stringify({
+				type: 'docs',
+				emotion: selectedEmotion,
+				note,
+				url: `https://${$page.host + $page.path}`
+			})
+		});
+		if (response.status === 201) {
+			resultMessage = 'Thanks for your feedback, we appreciate it.';
+		} else {
+			resultMessage = 'Oh no, something went wrong :(.';
+		}
+		setTimeout(() => {
+			selectedEmotion = undefined;
+			note = '';
+			resultMessage = '';
+		}, 5000);
+	};
+</script>
+
+<div>
+	<div class="bg-white shadow-normal rounded-2xl max-w-md py-8 px-6 m-auto">
+		<h5 class="mb-6 text-center font-bold">Was this helpful?</h5>
+		{#if resultMessage}
+			<p class="text-center">{resultMessage}</p>
+		{:else}
+			<form on:submit|preventDefault={submitFeedback}>
+				<div class="flex justify-center py-4 space-x-6">
+					{#each new Array(4) as _, index}
+						<button
+							on:click|preventDefault={() => (selectedEmotion = index + 1)}
+							class:selected={selectedEmotion === index + 1}
+							class="filter grayscale transform transition duration-150 hover:grayscale-0 hover:scale-150"
+						>
+							<img
+								src="/{index + 1}.svg"
+								alt="Feedback {index + 1} of 4"
+								title="Feedback {index + 1} of 4"
+								class="h-6 w-6"
+							/>
+						</button>
+					{/each}
+				</div>
+				{#if selectedEmotion}
+					<div class="mt-6">
+						<div class="w-full">
+							<label for="note" class="block my-2 text-left uppercase text-xs">Feedback</label>
+							<textarea
+								bind:value={note}
+								id="note"
+								width="100%"
+								placeholder="Your feedback..."
+								aria-label="Feedback input"
+								autocapitalize="off"
+								autocomplete="off"
+								autocorrect="off"
+								type="text"
+								class="w-full p-2 rounded-lg border border-gray-300 resize-none"
+							/>
+						</div>
+						<div class="flex justify-end">
+							<button
+								role="button"
+								type="submit"
+								disabled={isSubmittedOnce}
+								class="px-4 py-2 rounded-lg bg-black text-sm text-white hover:bg-white hover:text-black hover:border hover:border-black"><span>Send</span></button
+							>
+						</div>
+					</div>
+				{/if}
+			</form>
+		{/if}
+	</div>
+</div>
+
+<style type="text/postcss">
+	button.selected {
+		@apply grayscale-0 scale-150;
+	}
+</style>
