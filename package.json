@@ -12,18 +12,19 @@
 	},
 	"devDependencies": {
 		"@sveltejs/kit": "next",
+		"@vercel/node": "^1.11.1",
+		"autoprefixer": "^10.2.6",
+		"cssnano": "^5.0.6",
+		"postcss": "^8.3.5",
+		"postcss-load-config": "^3.1.0",
 		"prettier": "~2.2.1",
 		"prettier-plugin-svelte": "^2.2.0",
 		"svelte": "^3.34.0",
 		"svelte-check": "^2.0.0",
 		"svelte-preprocess": "^4.7.3",
+		"tailwindcss": "^2.2.4",
 		"tslib": "^2.0.0",
-		"typescript": "^4.0.0",
-		"postcss": "^8.3.5",
-		"postcss-load-config": "^3.1.0",
-		"autoprefixer": "^10.2.6",
-		"cssnano": "^5.0.6",
-		"tailwindcss": "^2.2.4"
+		"typescript": "^4.0.0"
 	},
 	"type": "module"
 }
