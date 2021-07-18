@@ -31,7 +31,7 @@
 </script>
 
 <div>
-	<div class="bg-white shadow-normal rounded-2xl max-w-md py-8 px-6 m-auto">
+	<div class="bg-white rounded-2xl max-w-md py-8 px-6 m-auto">
 		<h5 class="mb-6 text-center font-bold">Was this helpful?</h5>
 		{#if resultMessage}
 			<p class="text-center">{resultMessage}</p>
