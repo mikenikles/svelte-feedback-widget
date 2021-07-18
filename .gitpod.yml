@@ -3,6 +3,7 @@ tasks:
   - init: npm install
     command: |
       export HMR_HOST=`gp url 24678`
+      export PORT=3000
       npm run dev
 
 # List the ports to expose. Learn more https://www.gitpod.io/docs/config-ports/
